@@ -1,0 +1,32 @@
+<h1>The Register</h1>
+
+<%= form_tag :action=>'list' do %>
+<!--	<%= label_tag :month, 'the month' %> -->
+	<%= select_month @start_date %>
+	<%= submit_tag 'change month'%>
+<%end%>
+<p>
+<table border=1>
+<tr>
+<th>Date</th> <th>Account</th> <th>Payee</th> <th>Amount</th> <th>Tag</th>
+</tr>
+
+<% for tx in @txs %>
+
+<tr>
+<!-- <td><%= tx.date %></td> -->
+<td><%= tx.date.strftime("%m/%d/%y") %>
+<td><%= tx.account.name %>
+<td><%= tx.payee.friendly_name %></td>
+<td><%= number_to_currency(tx.amount) %></td>
+<td><%= tx.tag_list %></td>
+<td><%= link_to "edit", :action=>"edit", :id=>tx.id %></td>
+<td><%= link_to "delete", :action=>"delete", :id=>tx.id %></td>
+</tr>
+
+<% end %>
+
+</table>
+
+<%= link_to "new", :action=>"new" %>
+

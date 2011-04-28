@@ -1,0 +1,10 @@
+<h1> Edit Account </h1>
+
+<% form_for @account, :url => { :action=> :update_account, :id=>@account.id} do |form| %>
+<p>
+  <label>Name:</label>
+  <%= form.text_field :name %>
+</p>
+<%= form.submit %>
+
+<% end %>

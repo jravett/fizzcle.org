@@ -1,0 +1,28 @@
+<h1>Accounts</h1>
+
+<%= form_tag({:action => :upload}, :multipart => true) do %>
+  <%= file_field_tag 'ofx_file' %>
+  <%= submit_tag 'Upload'%>
+<% end %>
+<p>
+
+<table border=1>
+<tr>
+<th>Name</th> <th>Last Import</th> <th>Balance</th>
+</tr>
+
+<% for a in @accounts %>
+
+<td><%= a.name %></td>
+<td><%= a.last_import_date %></td>
+<td>TBD</td>
+<td><%= link_to "edit", :action=>"edit", :id=>a.id %></td>
+<td><%= link_to "delete", :action=>"delete", :id=>a.id %></td>
+</tr>
+
+<% end %>
+
+</table>
+
+<%= link_to "create new", :action=>"new" %>
+

@@ -1,0 +1,12 @@
+<h1> this is the import page </h1>
+
+
+<%= form_tag({:action => :upload}, :multipart => true) do %>
+  <%= file_field_tag 'ofx_file' %>
+  <%= submit_tag 'Upload'%>
+<% end %>
+
+<p>
+<%= link_to "Upload", :action=>"upload" %>
+<br>
+<%= link_to "Home", :action=>"index" %>

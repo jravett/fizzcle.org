@@ -1,0 +1,24 @@
+<h1> Create New Transaction </h1>
+
+<% form_for @tx, :url => { :action=> :save_new_transaction} do |form| %>
+<p>
+  <label>Date:</label>
+  <%= form.text_field :date %>
+</p>
+<p>
+  <label>Payee:</label>
+  <%= form.text_field :payee %>
+</p>
+<p>
+  <label>Amount:</label>
+  <%= form.text_field :amount %>
+</p>
+<p>
+  <label>Tag:</label>
+  <%= form.text_field :tag_list %>
+</p>
+<%= form.submit %>
+
+<% end %>
+
+<%= link_to "View Register", :controller=>"register", :action=>"list" %>

@@ -1,0 +1,28 @@
+<h1> Edit Transaction </h1>
+
+<% form_for @tx, :url => { :action=> :update_transaction, :id=>@tx.id} do |form| %>
+<p>
+  <label>Date:</label>
+  <%= form.text_field :date %>
+</p>
+<p>  <label>Payee(friendly):</label>
+<%= fields_for :tx_payee do |payee_fields| %>
+  <%=payee_fields.text_field :friendly_name%>
+  <% end %>
+<br>
+Originally: <i><%= @tx_payee.name %></i>
+</p>
+
+<p>
+  <label>Amount:</label>
+  <%= form.text_field :amount %>
+</p>
+<p>
+  <label>Tag:</label>
+  <%= form.text_field :tag_list %>
+</p>
+<%= form.submit %>
+
+<% end %>
+
+<%= link_to "View Register", :controller=>"register", :action=>"list" %>

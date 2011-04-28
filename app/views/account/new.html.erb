@@ -1,0 +1,11 @@
+<h1> Create New Account </h1>
+
+<% form_for @account, :url => { :action=> :save_new_account} do |form| %>
+<p>
+  <label>Name:</label>
+  <%= form.text_field :name %>
+</p>
+
+<%= form.submit %>
+
+<% end %>
