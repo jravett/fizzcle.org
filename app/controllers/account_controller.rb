@@ -51,6 +51,9 @@ class AccountController < ApplicationController
 		# try to open the ofx file
 #		ofx = OfxParser::OfxParser.parse(open("activity.ofx"))
 		ofx = OfxParser::OfxParser.parse(ofx_data.read)
+		
+		tx_imported=0
+		imported_account=nil
 	
 		if ofx
 		
@@ -67,6 +70,7 @@ class AccountController < ApplicationController
 					statement_transactions = ofx.credit_card.statement.transactions
 					ofx_account_id = ofx.credit_card.number	#get the account number
 					ofx_account_type = "credit card"
+					ofx_account_balance = ofx.credit_card.balance
 				rescue
 					logger.info 'line rescued'
 				end
@@ -79,6 +83,7 @@ class AccountController < ApplicationController
 					statement_transactions = ofx.bank_account.statement.transactions
 					ofx_account_id = ofx.bank_account.number #get the account number
 					ofx_account_type =ofx.bank_account.type #get the type of account
+					ofx_account_balance = ofx.bank_account.balance
 				rescue
 					logger.info 'line rescued'
 				end
@@ -93,18 +98,23 @@ class AccountController < ApplicationController
 				if (account)
 					logger.info 'account from ' + ofx_org + ' already exists'
 					account.last_import_date=Date.today
+					account.balance = ofx_account_balance
 					account.save
 				else
 					logger.info 'account from ' + ofx_org + ' does not exist and will be created'
 					name = ofx_org.to_s + ' - ' + ofx_account_type.to_s
 					account = Account.create(	:name=>name,
 																		:ofx_ORG=>ofx_org, :ofx_FI=>ofx_fi, :ofx_ACCTID=>ofx_account_id,
-																		:type=>ofx_account_type.to_s, :last_import_date=>Date.today)
-				end				
+																		:type=>ofx_account_type.to_s, :last_import_date=>Date.today,
+																		:balance=>ofx_account_balance)
+				end			
+
+				imported_account = account.name			
 				
 				statement_transactions.each do |t|
 					unless Transaction.find_by_guid(t.fit_id)	# only add if it doesn't already exist in the db
 						logger.info 'a transaction'
+						tx_imported +=1
 						tx=Transaction.new
 						tx.payee = import_payee(t.payee)
 						tx.amount = t.amount.to_f
@@ -119,6 +129,9 @@ class AccountController < ApplicationController
 				end
 			end
 		end
+		
+		flash[:notice] = tx_imported.to_s + " transactions imported to " + imported_account
+		
 		redirect_to :action=>:index
 		
 	end

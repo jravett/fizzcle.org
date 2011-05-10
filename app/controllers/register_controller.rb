@@ -22,7 +22,7 @@ class RegisterController < ApplicationController
 		@year=session[:active_year]
 		
 		logger.info 'using month # ' + @month.to_s
-		logger.info 'using year # ' + @year.to_s
+		logger.info 'using year  # ' + @year.to_s
 		
 		# create a listing of all the transactions
 		@start_date = Date.new(@year, @month.to_i, 1)

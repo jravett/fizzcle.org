@@ -8,14 +8,14 @@
 
 <table border=1>
 <tr>
-<th>Name</th> <th>Last Import</th> <th>Balance</th>
+<th>Name</th> <th>Last Import Date</th> <th>Balance</th>
 </tr>
 
 <% for a in @accounts %>
 
 <td><%= a.name %></td>
-<td><%= a.last_import_date %></td>
-<td>TBD</td>
+<td><%= a.last_import_date.strftime("%m/%d/%y") %></td>
+<td><%= number_to_currency(a.balance) %></td>
 <td><%= link_to "edit", :action=>"edit", :id=>a.id %></td>
 <td><%= link_to "delete", :action=>"delete", :id=>a.id %></td>
 </tr>
