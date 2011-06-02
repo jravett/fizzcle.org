@@ -53,6 +53,7 @@ class AccountController < ApplicationController
 		ofx = OfxParser::OfxParser.parse(ofx_data.read)
 		
 		tx_imported=0
+		tx_auto_tagged=0
 		imported_account=nil
 	
 		if ofx
@@ -123,6 +124,7 @@ class AccountController < ApplicationController
 						tx.guid = t.fit_id
 						unless (tx.payee.last_tag.blank?)
 							tx.tag_list=tx.payee.last_tag.split(/, /)
+							tx_auto_tagged +=1
 						end
 						tx.save
 					end
@@ -130,7 +132,7 @@ class AccountController < ApplicationController
 			end
 		end
 		
-		flash[:notice] = tx_imported.to_s + " transactions imported to " + imported_account
+		flash[:notice] = tx_imported.to_s + " transactions imported to " + imported_account + ". " + tx_auto_tagged.to_s + " auto tagged"
 		
 		redirect_to :action=>:index
 		
