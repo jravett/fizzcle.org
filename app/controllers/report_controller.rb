@@ -10,7 +10,7 @@ class ReportController < ApplicationController
 			@month=Date.today.month
 		end
 		
-		@year=2011;
+		@year=2012;
 		
 		@start_date = Date.new(@year, @month.to_i, 1)
 		@end_date = @start_date.end_of_month
@@ -31,7 +31,7 @@ class ReportController < ApplicationController
 			@month=Date.today.month
 		end
 		
-		@year=2011;
+		@year=2012;
 		
 		@start_date = Date.new(@year, @month.to_i, 1)
 		@end_date = @start_date.end_of_month

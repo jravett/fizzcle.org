@@ -1,7 +1,7 @@
 require 'rubygems'
-$LOAD_PATH.unshift 'C:/RoR/Ruby192/lib/ruby/gems/1.9.1/gems/hpricot-0.8.4/lib/'
-require 'hpricot'
-require 'C:/RoR/Ruby192/lib/ruby/gems/1.9.1/gems/ofx_parser-1.0.6/lib/ofx_parser'
+#$LOAD_PATH.unshift 'C:/RoR/Ruby192/lib/ruby/gems/1.9.1/gems/hpricot-0.8.4/lib/'
+#require 'hpricot'
+#require 'C:/RoR/Ruby192/lib/ruby/gems/1.9.1/gems/ofx_parser-1.0.6/lib/ofx_parser'
 
 
 
@@ -106,7 +106,8 @@ class AccountController < ApplicationController
 					name = ofx_org.to_s + ' - ' + ofx_account_type.to_s
 					account = Account.create(	:name=>name,
 																		:ofx_ORG=>ofx_org, :ofx_FI=>ofx_fi, :ofx_ACCTID=>ofx_account_id,
-																		:type=>ofx_account_type.to_s, :last_import_date=>Date.today,
+																	#	:type=>ofx_account_type.to_s,
+																		:last_import_date=>Date.today,
 																		:balance=>ofx_account_balance)
 				end			
 

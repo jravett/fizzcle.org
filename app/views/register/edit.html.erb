@@ -8,7 +8,7 @@ font-weight: bold;
 
 <h1> Edit Transaction </h1>
 
-<% form_for @tx, :url => { :action=> :update_transaction, :id=>@tx.id} do |form| %>
+<%= form_for @tx, :url => { :action=> :update_transaction, :id=>@tx.id} do |form| %>
 <p>
 <fieldset>
   <label>Date:</label>
