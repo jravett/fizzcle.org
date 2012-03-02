@@ -21,6 +21,7 @@ gem 'ofxparser'
 # gem 'ruby-debug19'
 
 # Bundle the extra gems:
+gem 'hoe', '2.8.0'
 # gem 'bj'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
