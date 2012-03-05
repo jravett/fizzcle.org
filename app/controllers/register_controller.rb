@@ -14,7 +14,7 @@ class RegisterController < ApplicationController
 			# switch to use a new month
 			m = params[:date][:month]
 			session[:active_month] = m
-			session[:active_year]=2011
+			session[:active_year]=2012
 			logger.info 'switching to month # ' + m.to_s
 		end
 	
