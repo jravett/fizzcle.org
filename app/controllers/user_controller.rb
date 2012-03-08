@@ -1,4 +1,7 @@
 class UserController < ApplicationController
+
+	skip_before_filter :login_required
+
   def login
     if request.post?
     	if session[:user] = User.authenticate(params[:login], params[:password])

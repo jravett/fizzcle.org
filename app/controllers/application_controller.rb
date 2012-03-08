@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-	#session[:active_month] = Date.today.month	#start out with current month
-	#session[:active_year] = 2011	#start out with current year
+	before_filter :login_required
 	
+	def login_required
+    if session[:user]
+      return true
+    end
+    flash[:notice]='Please login to continue'
+    session[:return_to]=request.fullpath
+    redirect_to :controller => "user", :action => "login"
+    return false 
+  end
 end

@@ -10,6 +10,8 @@
 
 <%= link_to image_tag "dollar_sign1.jpg", {:controller=> "main", :action=>"index"} %>
 <%= link_to "Fizzcle Home Page", :controller=> "main", :action=>"index" %>
+<%= link_to "logout", :controller=> "user", :action=>"logout" %>
+
 <hr />
 <% if flash[:notice] %>
   <p class="notice"><%= flash[:notice] %></p>
