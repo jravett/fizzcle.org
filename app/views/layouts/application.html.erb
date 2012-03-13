@@ -2,15 +2,26 @@
 <html>
 <head>
   <title>Fizzcle</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
+  
+<style type="text/css">
+#out
+{
+   position:fixed;
+   right:100px;
+   top:27px;
+
+} 
+</style>
+
 </head>
 <body>
 
-<%= link_to image_tag "dollar_sign1.jpg", {:controller=> "main", :action=>"index"} %>
+<%= link_to image_tag "/images/dollar_sign1.jpg", {:controller=> "main", :action=>"index"} %>
 <%= link_to "Fizzcle Home Page", :controller=> "main", :action=>"index" %>
-<%= link_to "logout", :controller=> "user", :action=>"logout" %>
+<%= link_to "logout", {:controller=> "user", :action=>"logout"}, :id => "out" %>
 
 <hr />
 <% if flash[:notice] %>

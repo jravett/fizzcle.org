@@ -8,17 +8,17 @@ font-weight: bold;
 
 <h1> Edit Transaction </h1>
 
-<%= form_for @tx, :url => { :action=> :update_transaction, :id=>@tx.id} do |form| %>
+<%= form_for @tx do |form| %>
 <p>
 <fieldset>
   <label>Date:</label>
   <%= form.text_field :date %>
 </p>
 <p>  <label>Payee(friendly):</label>
-<%= fields_for :tx_payee do |payee_fields| %>
+<%= fields_for @tx.payee do |payee_fields| %>
   <%=payee_fields.text_field :friendly_name%>
   <% end %>
-Originally: <i><%= @tx_payee.name %></i>
+Originally: <i><%= @tx.payee.name %></i>
 </p>
 
 <p>
@@ -30,7 +30,7 @@ Originally: <i><%= @tx_payee.name %></i>
   <%= form.text_field :tag_list %>
 </p>
 <%= form.submit "Submit"%>
-<%= link_to "cancel", :controller=>"register", :action=>"list" %>
+<%= link_to "cancel", transactions_path %>
 </fieldset>
 <% end %>
 

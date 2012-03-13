@@ -1,7 +1,7 @@
-class RegisterController < ApplicationController
-
-	def list
-	
+class TransactionsController < ApplicationController
+#  respond_to :html, :json
+  
+def index
 		unless session[:active_month]
 			session[:active_month] = Date.today.month
 		end
@@ -10,11 +10,11 @@ class RegisterController < ApplicationController
 			session[:active_year] = Date.today.year
 		end
 	
-		if request.post?
+		if params[:date]
 			# switch to use a new month
 			m = params[:date][:month]
 			session[:active_month] = m
-			session[:active_year]=2012
+			session[:active_year]=Date.today.year
 			logger.info 'switching to month # ' + m.to_s
 		end
 	
@@ -32,42 +32,76 @@ class RegisterController < ApplicationController
 		@txs = Transaction.find(:all,
 														:conditions => ["date >= ? and date <= ?", @start_date, @end_date],
 														:order => "date DESC")
-	end
+														
+end
+
+def show
+end
+
+def create
+    respond_to do |format|
+      format.html { redirect_to transactions_url }
+      format.json { head :no_content }
+    end
+end
+
+
 	
-	def delete
+	def destroy
 		#find the transaction based on the given id
 		@tx = Transaction.find(params[:id])
 		
 		#delete it
 		@tx.destroy
+
+    respond_to do |format|
+      format.html { redirect_to transactions_url }
+      format.json { head :no_content }
+    end
 		
-		#redirect back to the register list
-		redirect_to :action=>:list
 	end
 	
 	def edit
 		#find the correct transaction to edit
 		@tx = Transaction.find(params[:id])
-		@tx_payee = @tx.payee
+#		@tx_payee = @tx.payee
 		#pass to the view for editing...
 	end
 	
-	def update_transaction
-		#update an existing transaction based on changes from the view
+#	def update
+#    @tx = Transaction.find(params[:id])
+#
+#    respond_to do |format|
+#      format.html { redirect_to transactions_url }
+#      format.json { head :no_content }
+#      end
+#	end
+	
+	# PUT /transactions/1
+  # PUT /transactions/1.json
+	def update
+
 	  @tx = Transaction.find(params[:id])
-		
-		@tx.date = params[:transaction][:date]
-		@tx.amount = params[:transaction][:amount]
-		@tx.tag_list = params[:transaction][:tag_list]
-		
-		p = @tx.payee
-		p.friendly_name = params[:tx_payee][:friendly_name]
-		p.last_tag = @tx.tag_list.to_s
-		p.save
-		@tx.save
-#		@tx.update_attributes(params[:transaction])
-		
-		redirect_to :action=>:list
+	  logger.info 'ajax update? ' + @tx.date.to_s
+		respond_to do |format|	
+      @tx.update_attributes(params[:transaction])
+  
+  #		@tx.date = params[:transaction][:date]
+	#		@tx.amount = params[:transaction][:amount]
+	#		@tx.tag_list = params[:transaction][:tag_list]
+	#		@tx.save
+
+ 				format.html do
+ 					p = @tx.payee
+#					p.friendly_name = params[:tx_payee][:friendly_name]
+					p.friendly_name = params[:payee][:friendly_name]
+					p.last_tag = @tx.tag_list.to_s
+					p.save
+					redirect_to transactions_url 
+ 				end
+     	 format.json { head :no_content }
+      end
+
 	end
 	
 	def new

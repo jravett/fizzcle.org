@@ -1,7 +1,7 @@
 <h1>The Register</h1>
 
-<%= form_tag :action=>'list' do %>
-<!--	<%= label_tag :month, 'the month' %> -->
+
+<%= form_tag('/transactions', :method => :get) do %>
 	<%= select_month @start_date %>
 	<%= submit_tag 'change month'%>
 <%end%>
@@ -18,15 +18,14 @@
 <td><%= tx.date.strftime("%m/%d/%y") %>
 <td><%= tx.account.name %>
 <td><%= tx.payee.friendly_name %></td>
-<td><%= number_to_currency(tx.amount) %></td>
-<td><%= tx.tag_list %></td>
-<td><%= link_to "edit", :action=>"edit", :id=>tx.id %></td>
-<td><%= link_to "delete", :action=>"delete", :id=>tx.id %></td>
+<td><%= best_in_place tx, :amount , :display_with => :number_to_currency%></td>
+<td><%= best_in_place tx, :tag_list %></td>
+<td><%= link_to "edit", edit_transaction_path(tx) %></td>
+<td><%= link_to 'delete', tx, confirm: 'Are you sure?', method: :delete %></td>
 </tr>
 
 <% end %>
 
 </table>
 
-<%= link_to "new", :action=>"new" %>
 

@@ -10,6 +10,10 @@ gem 'pg'
 
 gem 'ofxparser'
 
+group :assets do
+  gem 'coffee-rails', '~> 3.2.1'
+end
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
@@ -19,6 +23,9 @@ gem 'ofxparser'
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
+
+gem 'jquery-rails'
+gem 'best_in_place'
 
 # Bundle the extra gems:
 gem 'hoe', '2.8.0'
