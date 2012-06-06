@@ -94,7 +94,8 @@ class AccountController < ApplicationController
 			if (statement_transactions)
 			
 				# check if the account we are importing to already exists in the db
-				account=Account.where(:ofx_ORG=>ofx_org, :ofx_FI=>ofx_fi, :ofx_ACCTID=>ofx_account_id).first
+#				account=Account.where(:ofx_ORG=>ofx_org, :ofx_FI=>ofx_fi, :ofx_ACCTID=>ofx_account_id).first
+				account=Account.where(:ofx_ACCTID=>ofx_account_id).first
 				
 				if (account)
 					logger.info 'account from ' + ofx_org + ' already exists'
