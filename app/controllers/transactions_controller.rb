@@ -21,6 +21,9 @@ def index
 		@month=session[:active_month]
 		@year=session[:active_year]
 		
+		## just for now...
+		@year=2012
+		
 		logger.info 'using month # ' + @month.to_s
 		logger.info 'using year  # ' + @year.to_s
 		
