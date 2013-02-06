@@ -35,6 +35,18 @@ class AccountController < ApplicationController
 	
 	end
 	
+	def merge (old, new)
+	
+		# get the list of all the transactions referenced in the old account
+		transactions = Transaction.where("account_id = old.account_id")
+		
+		# iterate through the list, and mark each to the new account
+		transactions.each do |tx|
+			tx.account_id = new.account_id
+			tx.save
+		end
+	end
+	
 	def update_account
 		#update an existing account based on changes from the view
 	  @account = Account.find(params[:id])

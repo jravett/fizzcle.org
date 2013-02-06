@@ -77,5 +77,27 @@ class ReportController < ApplicationController
 		end
 		
 	end
+	
+	def tag_year
+	
+		if request.post?
+			@year = params[:date][:year]
+#			@year=Date.today.year	#2013
+				
+			@start_date = Date.new(@year.to_i, 1, 1)
+			@end_date = @start_date.end_of_year
+	
+			@tag_name = params[:tag_name]
+			@txs = Transaction.find_tagged_with(@tag_name, :conditions=>{:date=>(@start_date)..(@end_date)})
+			
+			@sum=0
+			@txs.each {|t| @sum += t.amount}
+		else
+			@year=Date.today.year
+			@start_date = Date.new(@year, 1, 1)
+		end
+		
+	end
+
 
 end
