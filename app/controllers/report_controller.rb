@@ -88,7 +88,9 @@ class ReportController < ApplicationController
 			@end_date = @start_date.end_of_year
 	
 			@tag_name = params[:tag_name]
-			@txs = Transaction.find_tagged_with(@tag_name, :conditions=>{:date=>(@start_date)..(@end_date)})
+			@txs = Transaction.find_tagged_with(@tag_name, :conditions=>{:date=>(@start_date)..(@end_date)}, :order=>"date ASC")
+			
+			@count=@txs.count
 			
 			@sum=0
 			@txs.each {|t| @sum += t.amount}
