@@ -2,6 +2,7 @@
 <%= form_tag :action=>'tag' do %>
 	<%= text_field_tag :tag_name %>
 	<%= select_month @start_date %>
+	<%= select_year(@start_date, :start_year => 2011, :end_year => 2016) %>
 	<%= submit_tag 'get report'%>
 <%end%>
 

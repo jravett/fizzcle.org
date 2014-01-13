@@ -25,15 +25,18 @@ class ReportController < ApplicationController
 
 		if request.post?
 			@month = params[:date][:month]
+			@year = params[:date][:year]
 			logger.info 'using given month ' + @month.to_s
+			logger.info 'using given year ' + @year.to_s
 		else
-			logger.info 'defaulting to current month...'
+			logger.info 'defaulting to current month and year...'
 			@month=Date.today.month
+			@year=Date.today.year
 		end
 		
-		@year=2013;
+	#	@year=2013;
 		
-		@start_date = Date.new(@year, @month.to_i, 1)
+		@start_date = Date.new(@year.to_i, @month.to_i, 1)
 		@end_date = @start_date.end_of_month
 		
 		# Transaction.find_tagged_with("crap", :conditions=>'account_id=10')
@@ -42,6 +45,7 @@ class ReportController < ApplicationController
 		
 		@tag_amounts = Hash.new
 		
+		# loop through every transaction
 		@txs.each do |tx|
 			tags = tx.tag_list
 			tags.each do |tg|
@@ -53,6 +57,10 @@ class ReportController < ApplicationController
 			end
 		end
 		
+		# sort by amount
+#		@tag_amounts.sort_by { |tag, amount| amount }
+		@tag_amounts.sort { |l, r| l[1]<=>r[1] }
+		
 		@title = Date::MONTHNAMES[@month.to_i].to_s + " " + @year.to_s
 	end
 	
@@ -60,9 +68,9 @@ class ReportController < ApplicationController
 	
 		if request.post?
 			@month = params[:date][:month]
-			@year=Date.today.year
+			@year = params[:date][:year]
 				
-			@start_date = Date.new(@year, @month.to_i, 1)
+			@start_date = Date.new(@year.to_i, @month.to_i, 1)
 			@end_date = @start_date.end_of_month
 	
 			@tag_name = params[:tag_name]
