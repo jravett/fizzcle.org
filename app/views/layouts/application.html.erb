@@ -7,21 +7,27 @@
   <%= csrf_meta_tag %>
   
 <style type="text/css">
-#out
-{
-   position:fixed;
-   right:100px;
-   top:27px;
 
-} 
 </style>
 
 </head>
 <body>
 
-<%= link_to image_tag "/images/dollar_sign1.jpg", {:controller=> "main", :action=>"index"} %>
-<%= link_to "Fizzcle Home Page", :controller=> "main", :action=>"index" %>
-<%= link_to "logout", {:controller=> "user", :action=>"logout"}, :id => "out" %>
+<span class="highlight">
+<table border=0>
+
+<tr>
+<th><%= link_to image_tag "/images/dollar_sign1.jpg", {:controller=> "main", :action=>"index"} %></th>
+<th width="200"><%= link_to "Fizzcle Home Page", :controller=> "main", :action=>"index" %></th>
+<th width="200"><%= link_to "View Accounts", :controller=>"account", :action=>"index" %></th>
+<th width="200"><%= link_to "View Register", :controller=>"transactions", :action=>"index" %></th>
+<th width="200"><%= link_to "View Reports", :controller=>"report", :action=>"index" %></th>
+<th width="200"><%= link_to "logout", {:controller=> "user", :action=>"logout"} %></th>
+</tr>
+
+</table>
+
+</span>
 
 <hr />
 <% if flash[:notice] %>

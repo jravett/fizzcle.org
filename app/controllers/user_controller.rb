@@ -1,6 +1,8 @@
 class UserController < ApplicationController
 
+	layout "user"
 	skip_before_filter :login_required
+
 
   def login
     if request.post?
@@ -8,7 +10,7 @@ class UserController < ApplicationController
         	flash[:notice]  = "Login successful!"
 					redirect_to :controller => 'main', :action => 'index'
 			else
-       		flash[:notice] = "Login unsuccessful"
+       		flash[:notice] = "Login unsuccessfull"
       end
     end
   end

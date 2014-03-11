@@ -1,13 +1,19 @@
-<h3>Login</h3> 
+<style>
+form label{
+display: inline-block;
+width: 100px;
+font-weight: bold;
+}
+</style>
 
 <%= form_tag :action=> "login" do %>
 
-  <%= label_tag 'Login:'%>
+  <%= label_tag 'User Name:'%>
   <%= text_field_tag :login %>
 <p>
   <%= label_tag 'Password:'%>
   <%= password_field_tag :password %>
 
-<%= submit_tag %>
- 
+<%= submit_tag 'Log In'%>
+
 <% end %>
