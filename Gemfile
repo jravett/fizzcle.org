@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+ruby '2.1.7'
 gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
@@ -13,6 +14,8 @@ gem 'ofxparser'
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 end
+
+gem 'coffee-script-source', '1.8.0'
 
 # Use unicorn as the web server
 # gem 'unicorn'
