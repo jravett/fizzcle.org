@@ -3,7 +3,7 @@
 
 <%= form_tag('/transactions', :method => :get) do %>
 	<%= select_month @start_date %>
-	<%= select_year(@start_date, :start_year => 2011, :end_year => 2016) %>
+	<%= select_year(@start_date, :start_year => 2011, :end_year => Date.today.year) %>
 	<%= submit_tag 'change date'%>
 <%end%>
 <p>

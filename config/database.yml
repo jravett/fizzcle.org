@@ -10,6 +10,9 @@ development:
   encoding: unicode
   database: fizzcle_development
   pool: 5
+ # username: postgres
+ # password: admin
+ 
   username: user
   password: password
 

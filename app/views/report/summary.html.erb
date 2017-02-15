@@ -1,7 +1,7 @@
 <h1> Summary Report </h1>
 <%= form_tag :action=>'summary' do %>
 	<%= select_month @start_date %>
-	<%= select_year(@start_date, :start_year => 2011, :end_year => 2016) %>
+	<%= select_year(@start_date, :start_year => 2011, :end_year => Date.today.year) %>
 	<%= submit_tag 'change date'%>
 <%end%>
 
